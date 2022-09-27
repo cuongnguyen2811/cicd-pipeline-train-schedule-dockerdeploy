@@ -18,6 +18,9 @@ pipeline {
             }
             steps {
                 script {
+                    sh 'groupadd docker'
+                    sh 'usermod -aG docker root'
+                    sh 'chmod 666 /var/run/docker.sock'
                     app = docker.build("cuong2811/train-schedule")
                     app.inside {
                         sh 'echo $(curl localhost:8000)'
